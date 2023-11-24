@@ -15,6 +15,14 @@ public class House : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        createcube();
+
+    }
+
+
+    public void createcube()
+    {
         MeshFilter meshFilter = this.GetComponent<MeshFilter>();
 
         MeshBuilder meshBuilder = new MeshBuilder(6); // sub meshes is 6
@@ -57,13 +65,6 @@ public class House : MonoBehaviour
         buildingMaterial.color = new UnityEngine.Color(150f / 255f, 75f / 255f, 0f / 255f, 1f); // Set the color or other properties
 
         this.gameObject.GetComponent<MeshRenderer>().material = buildingMaterial;
-
-
-
-
-
-
-
     }
 
 }
