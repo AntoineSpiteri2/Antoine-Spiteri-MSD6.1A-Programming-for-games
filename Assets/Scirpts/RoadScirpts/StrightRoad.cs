@@ -1,76 +1,65 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class StrightRoad : MonoBehaviour
 {
+    public Vector3 RoadSize;
+    public Vector3 PavementSize;
+    public Vector3 MarkingSize;
+    public float MarkingSpacing;
 
-
-    public float width;
-
-    public float length;
-
-    public float height;
-
-
-    // Start is called before the first frame update
     void Start()
     {
-        createStrightRoad(width, length, height, this.gameObject.transform.rotation);
+        // Create the main road
+        CreateRoadPart("Road", RoadSize, this.transform.position, Quaternion.identity);
 
+        // Create pavements on both sides of the road
+        CreateRoadPart("Pavement_Left", PavementSize, new Vector3(-RoadSize.x / 2 - PavementSize.x / 2, 0, 0), Quaternion.identity);
+        CreateRoadPart("Pavement_Right", PavementSize, new Vector3(RoadSize.x / 2 + PavementSize.x / 2, 0, 0), Quaternion.identity);
+
+        // Create road markings
+        for (float i = -RoadSize.z / 2; i < RoadSize.z / 2; i += MarkingSize.z + MarkingSpacing)
+        {
+            CreateRoadPart("Marking", MarkingSize, new Vector3(0, 0.1f, i), Quaternion.identity);
+        }
     }
 
-
-
-
-    public void createStrightRoad( float width, float height, float length,  Quaternion rotation)
+    void CreateRoadPart(string name, Vector3 size, Vector3 position, Quaternion rotation)
     {
-        MeshFilter meshFilter = this.GetComponent<MeshFilter>();
+        GameObject roadPart = new GameObject(name);
+        roadPart.transform.SetParent(this.transform);
+        roadPart.transform.localPosition = position;
+        roadPart.transform.localRotation = rotation;
+        roadPart.transform.localScale = new Vector3(1, 1, 1); // Scale set to 1, 1, 1 by default
 
-        MeshBuilder meshBuilder = new MeshBuilder(6); // sub meshes is 6
+        // Generate the cube mesh for this road part
+        Cube.CreateCube(roadPart, size.z, size.y, size.x); // Assuming CreateCube is a static method in Cube.cs
 
+        // Create a new material and assign a color based on the road part type
+        Material material = new Material(Shader.Find("Standard")); // Using the Standard shader
+        if (name.Contains("Road"))
+        {
+            material.color = Color.black; // Road color
+        }
+        else if (name.Contains("Pavement"))
+        {
+            material.color = Color.gray; // Pavement color
+        }
+        else if (name.Contains("Marking"))
+        {
+            material.color = Color.yellow; // Road marking color
+        }
 
-        // Define vertices
-        Vector3[] vertices = new Vector3[8];
-
-        vertices[0] = new Vector3(-width / 2, 0, 0); // Bottom Left
-        vertices[1] = new Vector3(width / 2, 0, 0); // Bottom Right
-        vertices[2] = new Vector3(-width / 2, 0, length); // Top Left
-        vertices[3] = new Vector3(width / 2, 0, length); // Top Right
-
-
-        // Define triangles for the top face of the road
-        int[] roadTriangles = { 0, 2, 3, 0, 3, 1 }; // Top face
-
-
-
-
-        meshBuilder.BuildTriangle(vertices[roadTriangles[0]], vertices[roadTriangles[1]], vertices[roadTriangles[2]], 0);
-        meshBuilder.BuildTriangle(vertices[roadTriangles[3]], vertices[roadTriangles[4]], vertices[roadTriangles[5]], 0);
-
-        // Flip the first triangle
-        meshBuilder.BuildTriangle(vertices[roadTriangles[0]], vertices[roadTriangles[2]], vertices[roadTriangles[1]], 0);
-
-        // Flip the second triangle
-        meshBuilder.BuildTriangle(vertices[roadTriangles[3]], vertices[roadTriangles[5]], vertices[roadTriangles[4]], 0);
-
-
-
-
-        meshFilter.mesh = meshBuilder.CreateMesh();
-
-        MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
-
-
-        this.gameObject.transform.rotation = rotation;
-
-        //Material buildingMaterial = new Material(Shader.Find("Standard"));
-        //buildingMaterial.color = new UnityEngine.Color(150f / 255f, 75f / 255f, 0f / 255f, 1f); // Set the color or other properties
-
-        //this.gameObject.GetComponent<MeshRenderer>().material = buildingMaterial;
+        // Assign the material to the MeshRenderer
+        MeshRenderer meshRenderer = roadPart.GetComponent<MeshRenderer>();
+        if (meshRenderer != null)
+        {
+            meshRenderer.material = material;
+        }
     }
-
-
-
 }
+
+
+

@@ -402,7 +402,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1503466151}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a093c2bab74b6439468ba9e78e8be4, type: 3}
+  m_Script: {fileID: 11500000, guid: 6528f2597655581478980d076a9dde26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roadType: 1
+  RoadLength: 20
+  RoadWidth: 5
+  RoadHeight: 0.5
+  RoadLocation: {x: 0, y: 0, z: 0}
