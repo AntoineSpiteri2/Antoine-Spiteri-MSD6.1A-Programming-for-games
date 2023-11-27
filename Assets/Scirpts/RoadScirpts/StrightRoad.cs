@@ -3,55 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Road : MonoBehaviour
+public class StrightRoad : MonoBehaviour
 {
 
-    public enum RoadType
-    {
-        Straight,
-        Curved,
-        Intersection,
-        T_Junction,
-        Cross
-        // Add more types as needed
-    }
 
-    public RoadType roadType;
+    public float width;
 
+    public float length;
 
+    public float height;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        CreateRoad();
-    }
-
-
-    void CreateRoad()
-    {
-        switch (roadType)
-        {
-            case RoadType.Straight:
-                createRoad(1,0.5f,2, this.gameObject.transform.position, this.gameObject.transform.rotation);
-                break;
-            case RoadType.Curved:
-                createRoad(1, 0.5f, 2, this.gameObject.transform.position, this.gameObject.transform.rotation);
-                createRoad(1, 0.5f, 2, this.gameObject.transform.position, Quaternion.Euler(0, 90, 0));
-
-
-                break;
-            case RoadType.Intersection:
-                // Logic for creating an intersection
-                break;
-                // Implement other cases as needed
-        }
+        createStrightRoad(width, length, height, this.gameObject.transform.rotation);
 
     }
 
 
 
-    public void createRoad( float width, float height, float length, Vector3 position, Quaternion rotation)
+
+    public void createStrightRoad( float width, float height, float length,  Quaternion rotation)
     {
         MeshFilter meshFilter = this.GetComponent<MeshFilter>();
 
@@ -89,7 +62,6 @@ public class Road : MonoBehaviour
 
         MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
 
-        this.gameObject.transform.position = position;
 
         this.gameObject.transform.rotation = rotation;
 
