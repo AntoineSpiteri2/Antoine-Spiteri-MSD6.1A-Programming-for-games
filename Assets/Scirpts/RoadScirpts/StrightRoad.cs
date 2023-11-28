@@ -5,40 +5,44 @@ using UnityEngine;
 
 public class StrightRoad : MonoBehaviour
 {
-    public Vector3 RoadSize;
-    public Vector3 PavementSize;
-    public Vector3 MarkingSize;
-    public float MarkingSpacing;
+    // Default values as seen in the screenshot
+    public Vector3 RoadSize = new Vector3(20, 0.5f, 10);
+    public Vector3 PavementSize = new Vector3(20.05f, 1, 2.5f);
+    public Vector3 MarkingSize = new Vector3(3, 0.75f, 0.25f);
+
+
+
+
+
 
     void Start()
     {
         // Create the main road
-        CreateRoadPart("Road", RoadSize, this.transform.position, Quaternion.identity);
+        CreateRoadPart("Road", RoadSize, this.transform.position);
 
         // Create pavements on both sides of the road
-        CreateRoadPart("Pavement_Left", PavementSize, new Vector3(-RoadSize.x / 2 - PavementSize.x / 2, 0, 0), Quaternion.identity);
-        CreateRoadPart("Pavement_Right", PavementSize, new Vector3(RoadSize.x / 2 + PavementSize.x / 2, 0, 0), Quaternion.identity);
+        CreateRoadPart("Pavement_Left", PavementSize,  new Vector3 (0,0,-12));
+        CreateRoadPart("Pavement_Right", PavementSize,  new Vector3(0, 0, 12));
 
-        // Create road markings
-        for (float i = -RoadSize.z / 2; i < RoadSize.z / 2; i += MarkingSize.z + MarkingSpacing)
-        {
-            CreateRoadPart("Marking", MarkingSize, new Vector3(0, 0.1f, i), Quaternion.identity);
-        }
+        CreateRoadPart("Marking", MarkingSize, new Vector3(0, 0, 0));
+        CreateRoadPart("Marking", MarkingSize, new Vector3(15, 0, 0));
+        CreateRoadPart("Marking", MarkingSize, new Vector3(-15, 0, 0));
+
+
     }
 
-    void CreateRoadPart(string name, Vector3 size, Vector3 position, Quaternion rotation)
+    void CreateRoadPart(string name, Vector3 size, Vector3 position)
     {
         GameObject roadPart = new GameObject(name);
-        roadPart.transform.SetParent(this.transform);
+        roadPart.transform.SetParent(this.transform, false);
         roadPart.transform.localPosition = position;
-        roadPart.transform.localRotation = rotation;
-        roadPart.transform.localScale = new Vector3(1, 1, 1); // Scale set to 1, 1, 1 by default
+        roadPart.transform.localScale = size;
 
-        // Generate the cube mesh for this road part
-        Cube.CreateCube(roadPart, size.z, size.y, size.x); // Assuming CreateCube is a static method in Cube.cs
+        // Add the Cube component, which will automatically create the cube mesh
+        Cube cubeScript = roadPart.AddComponent<Cube>();
 
-        // Create a new material and assign a color based on the road part type
-        Material material = new Material(Shader.Find("Standard")); // Using the Standard shader
+        // Create and assign a material with a color based on the road part type
+        Material material = new Material(Shader.Find("Standard"));
         if (name.Contains("Road"))
         {
             material.color = Color.black; // Road color
@@ -49,16 +53,18 @@ public class StrightRoad : MonoBehaviour
         }
         else if (name.Contains("Marking"))
         {
-            material.color = Color.yellow; // Road marking color
+            material.color = Color.yellow; // Marking color
         }
 
-        // Assign the material to the MeshRenderer
+        // Add a MeshRenderer component if not present and assign the material
         MeshRenderer meshRenderer = roadPart.GetComponent<MeshRenderer>();
-        if (meshRenderer != null)
+        if (meshRenderer == null)
         {
-            meshRenderer.material = material;
+            meshRenderer = roadPart.AddComponent<MeshRenderer>();
         }
+        meshRenderer.material = material;
     }
+
 }
 
 

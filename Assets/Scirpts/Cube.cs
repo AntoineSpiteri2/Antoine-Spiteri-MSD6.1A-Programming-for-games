@@ -7,8 +7,17 @@ using UnityEngine;
 public class Cube : MonoBehaviour
 {
 
+    public Vector3 size = Vector3.one;
+
+
+    public Quaternion Crot;
+    private void Start()
+    {
+        CreateCube();
+    }
+
     // Method to create a cube mesh with given dimensions and apply it to the GameObject
-    public static void CreateCube(GameObject gameObject, float length, float height, float width)
+    void CreateCube()
     {
         MeshFilter meshFilter = gameObject.GetComponent<MeshFilter>();
         if (meshFilter == null)
@@ -24,15 +33,16 @@ public class Cube : MonoBehaviour
 
         MeshBuilder meshBuilder = new MeshBuilder(6); // Assuming 6 submeshes
 
+        transform.rotation = Crot;
+
         // Define vertices
         Vector3[] vertices = new Vector3[8];
-        Vector3 halfSize = new Vector3(width / 2, height / 2, length / 2);
         for (int i = 0; i < 8; i++)
         {
             vertices[i] = new Vector3(
-                halfSize.x * ((i & 1) == 0 ? -1 : 1),
-                halfSize.y * ((i & 2) == 0 ? -1 : 1),
-                halfSize.z * ((i & 4) == 0 ? -1 : 1));
+                size.x * ((i & 1) == 0 ? -1 : 1),
+                size.y * ((i & 2) == 0 ? -1 : 1),
+                size.z * ((i & 4) == 0 ? -1 : 1));
         }
 
         // Define triangles for each face (6 faces, 2 triangles per face)
