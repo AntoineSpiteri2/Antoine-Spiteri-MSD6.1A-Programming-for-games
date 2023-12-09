@@ -1,27 +1,88 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class LshapeRoad : MonoBehaviour
 {
     public StrightRoad roadPrefab; // Assign this prefab in the Inspector
     public float turnOffset; // This should be set to the width of the road
 
+    public Vector3 RoadSize = new Vector3(20, 0.5f, 10);
+    public Vector3 RoadLoc = new Vector3(20.0f, 1, 2.5f);
+    Vector3 newPosition;
+
+
     void Start()
     {
 
-        //using the strightroad class as not repeat code keep it simple and more maintianable  DRY (Don't Repeat Yourself) principle
+        GameObject LroadPart = new GameObject(name);
+        Destroy(LroadPart);
+        roadPrefab = LroadPart.AddComponent<StrightRoad>();     
+        LroadPart.transform.SetParent(this.transform, false);
+        LroadPart.transform.localPosition = this.gameObject.transform.position;
+        LroadPart.transform.localScale = this.gameObject.transform.localScale;
 
-        // Instantiate the first segment of the road
-        StrightRoad firstSegment = Instantiate(roadPrefab, transform);
+
+
+        newPosition = new Vector3(30, 0, 0);
+
+        StrightRoad firstSegment = Instantiate(roadPrefab, newPosition, Quaternion.identity);
         firstSegment.name = "Road_Segment_1";
 
-        // Instantiate the second segment of the road
-        StrightRoad secondSegment = Instantiate(roadPrefab, transform);
+         newPosition = new Vector3(0, 0, 30);
+        StrightRoad secondSegment = Instantiate(roadPrefab, newPosition, Quaternion.Euler(0, 90, 0));
         secondSegment.name = "Road_Segment_2";
-        //// The second segment should start at the end of the first and then offset by the road's width
-        //secondSegment.transform.localPosition = new Vector3(firstSegment.RoadSize.x, 0, firstSegment.RoadSize.z / 2 + turnOffset / 2);
-        // Rotate the second segment by 90 degrees to form the L shape
-        secondSegment.transform.localRotation = Quaternion.Euler(0, 90, 0);
+
+
+        newPosition = new Vector3(0, 0, 0);
+
+        CreateRoadPart("Road", new Vector3(10, 0.5f, 10), newPosition);
+
+        newPosition = new Vector3(0, 0, 0);
+
+
+        CreateRoadPart("Pavement", new Vector3(10, 1, 2.5f), new Vector3(0, 0, -12));
+
+        CreateRoadPart("Pavement 2", new Vector3(2.5f, 1, 12.5f), new Vector3(-12, 0, -2));
+
+
+
+        void CreateRoadPart(string name, Vector3 size, Vector3 position)
+        {
+            GameObject roadPart = new GameObject(name);
+            roadPart.transform.SetParent(this.transform, false);
+            roadPart.transform.localPosition = position;
+            roadPart.transform.localScale = size;
+
+            // Add the Cube component, which will automatically create the cube mesh
+            Cube cubeScript = roadPart.AddComponent<Cube>();
+
+            // Create and assign a material with a color based on the road part type
+            Material material = new Material(Shader.Find("Standard"));
+            if (name.Contains("Road"))
+            {
+                material.color = UnityEngine.Color.black; // Road color
+            }
+            else if (name.Contains("Pavement"))
+            {
+                material.color = UnityEngine.Color.gray; // Pavement color
+            }
+            else if (name.Contains("Marking"))
+            {
+                material.color = UnityEngine.Color.yellow; // Marking color
+            }
+
+            // Add a MeshRenderer component if not present and assign the material
+            MeshRenderer meshRenderer = roadPart.GetComponent<MeshRenderer>();
+            if (meshRenderer == null)
+            {
+                meshRenderer = roadPart.AddComponent<MeshRenderer>();
+            }
+            meshRenderer.material = material;
+        }
+
+
     }
 }

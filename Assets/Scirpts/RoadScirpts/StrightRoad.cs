@@ -18,7 +18,7 @@ public class StrightRoad : MonoBehaviour
     void Start()
     {
         // Create the main road
-        CreateRoadPart("Road", RoadSize, this.transform.position);
+        CreateRoadPart("Road", RoadSize, new Vector3(0, 0, 0));
 
         // Create pavements on both sides of the road
         CreateRoadPart("Pavement_Left", PavementSize,  new Vector3 (0,0,-12));
