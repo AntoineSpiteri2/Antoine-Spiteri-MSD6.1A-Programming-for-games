@@ -6,34 +6,22 @@ using UnityEngine.UIElements;
 
 public class LshapeRoad : MonoBehaviour
 {
-    public StrightRoad roadPrefab; // Assign this prefab in the Inspector
-    public float turnOffset; // This should be set to the width of the road
 
-    public Vector3 RoadSize = new Vector3(20, 0.5f, 10);
-    public Vector3 RoadLoc = new Vector3(20.0f, 1, 2.5f);
+    public Vector3 RoadRot = new Vector3(0, 90, 0);
     Vector3 newPosition;
 
 
     void Start()
     {
 
-        GameObject LroadPart = new GameObject(name);
-        Destroy(LroadPart);
-        roadPrefab = LroadPart.AddComponent<StrightRoad>();     
-        LroadPart.transform.SetParent(this.transform, false);
-        LroadPart.transform.localPosition = this.gameObject.transform.position;
-        LroadPart.transform.localScale = this.gameObject.transform.localScale;
+        //GameObject LroadPart = new GameObject("road part1");
+        //LroadPart.AddComponent<StrightRoad>();
+        //LroadPart.transform.SetParent(this.transform, false);
+        //LroadPart.transform.localPosition = new Vector3(0, 0, 30);
+        //LroadPart.transform.eulerAngles = RoadRot; // Corrected line
 
+        //LroadPart.transform.localScale = this.gameObject.transform.localScale;
 
-
-        newPosition = new Vector3(30, 0, 0);
-
-        StrightRoad firstSegment = Instantiate(roadPrefab, newPosition, Quaternion.identity);
-        firstSegment.name = "Road_Segment_1";
-
-         newPosition = new Vector3(0, 0, 30);
-        StrightRoad secondSegment = Instantiate(roadPrefab, newPosition, Quaternion.Euler(0, 90, 0));
-        secondSegment.name = "Road_Segment_2";
 
 
         newPosition = new Vector3(0, 0, 0);
@@ -46,6 +34,13 @@ public class LshapeRoad : MonoBehaviour
         CreateRoadPart("Pavement", new Vector3(10, 1, 2.5f), new Vector3(0, 0, -12));
 
         CreateRoadPart("Pavement 2", new Vector3(2.5f, 1, 12.5f), new Vector3(-12, 0, -2));
+
+
+        GameObject LroadPart2 = new GameObject("road part2");
+        LroadPart2.AddComponent<StrightRoad>();
+        LroadPart2.transform.SetParent(this.transform, false);
+        LroadPart2.transform.localPosition = new Vector3(30,0,0);
+
 
 
 

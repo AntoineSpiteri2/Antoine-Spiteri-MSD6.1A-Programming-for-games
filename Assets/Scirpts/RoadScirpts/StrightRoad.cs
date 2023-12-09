@@ -22,7 +22,7 @@ public class StrightRoad : MonoBehaviour
 
         // Create pavements on both sides of the road
         CreateRoadPart("Pavement_Left", PavementSize,  new Vector3 (0,0,-12));
-        CreateRoadPart("Pavement_Right", PavementSize,  new Vector3(0, 0, 12));
+        CreateRoadPart("Pavement_Right", PavementSize,  new Vector3(0, 0, 10));
 
         CreateRoadPart("Marking", MarkingSize, new Vector3(0, 0, 0));
         CreateRoadPart("Marking", MarkingSize, new Vector3(15, 0, 0));
