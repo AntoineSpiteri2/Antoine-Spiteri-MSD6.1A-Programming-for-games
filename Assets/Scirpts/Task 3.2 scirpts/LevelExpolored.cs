@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelExpolored : MonoBehaviour
 {
@@ -32,9 +33,6 @@ public class LevelExpolored : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.tag);
-
-        Debug.Log(other.gameObject.name);
 
 
         if (other.gameObject.tag == "FoundLoc")
@@ -50,14 +48,20 @@ public class LevelExpolored : MonoBehaviour
             other.gameObject.tag = "Untagged";
             meshRenderer.material.color = UnityEngine.Color.green;
 
-            Debug.Log("trigger");
             if (gameObjects.Count == 0)
             {
-                Debug.Log("aa");
+                if (SceneManager.GetActiveScene().name != "task3.2 level 2") {
+                    LoadNewScene("task3.2 level 2");
+                }
             }
 
         }
 
+    }
+
+    public void LoadNewScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
     }
 
 
