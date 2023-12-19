@@ -59,6 +59,7 @@ public class LshapeRoad : MonoBehaviour
             if (name.Contains("Road"))
             {
                 material.color = UnityEngine.Color.black; // Road color
+                roadPart.tag = "FoundLoc";
             }
             else if (name.Contains("Pavement"))
             {

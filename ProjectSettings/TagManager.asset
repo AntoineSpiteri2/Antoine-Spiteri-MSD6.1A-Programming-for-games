@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Obs
   - Crash
+  - SpawnPoint
+  - FoundLoc
   layers:
   - Default
   - TransparentFX

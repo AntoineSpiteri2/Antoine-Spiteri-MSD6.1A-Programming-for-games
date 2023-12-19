@@ -18,7 +18,7 @@ public class SpawnPlayerRandom : MonoBehaviour
 
     private void Update()
     {
-        if (currentPlayer.transform.position.y < -25)
+        if (currentPlayer.transform.position.y < -10)
         {
             Destroy(currentPlayer); // Destroy the current player
             SpawnPlayerAtRandomLocation(); // Spawn a new player

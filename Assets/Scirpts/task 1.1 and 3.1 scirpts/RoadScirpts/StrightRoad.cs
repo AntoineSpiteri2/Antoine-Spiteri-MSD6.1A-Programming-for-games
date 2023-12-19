@@ -46,6 +46,8 @@ public class StrightRoad : MonoBehaviour
         if (name.Contains("Road"))
         {
             material.color = Color.black; // Road color
+            roadPart.tag = "FoundLoc";
+
         }
         else if (name.Contains("Pavement"))
         {
