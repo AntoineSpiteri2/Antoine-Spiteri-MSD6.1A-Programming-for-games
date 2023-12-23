@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TerrainGen : MonoBehaviour
 {
+
+    // reference  https://www.youtube.com/watch?v=vFvwyu_ZKfU 
     public int depth = 20;
 
     public int width = 256;
@@ -16,6 +18,11 @@ public class TerrainGen : MonoBehaviour
     public float offsety = 100f;
 
 
+    public GameObject tree;
+
+    public int NumberoFTrees = 100;
+
+    public float slopthreshold = 10f;
 
 
     private void Start()
@@ -27,6 +34,9 @@ public class TerrainGen : MonoBehaviour
         Terrain terrain =  GetComponent<Terrain>();
 
         terrain.terrainData = GenerateTerrain(terrain.terrainData);
+
+
+        PlaceTrees(terrain, tree, NumberoFTrees);
     }
 
 
@@ -65,5 +75,23 @@ public class TerrainGen : MonoBehaviour
         return Mathf.PerlinNoise(xcord, ycord);
 
     }
+
+    void PlaceTrees(Terrain terrain, GameObject treePrefab, int numberOfTrees)
+    {
+        for (int i = 0; i < numberOfTrees; i++)
+        {
+            float x = Random.Range(0, terrain.terrainData.size.x);
+            float z = Random.Range(0, terrain.terrainData.size.z);
+            float y = terrain.SampleHeight(new Vector3(x, 0, z));
+
+            float normY = y / terrain.terrainData.size.y;
+            if (normY < slopthreshold)
+            {
+                Vector3 treePosition = new Vector3(x, y, z) + terrain.transform.position;
+                Instantiate(treePrefab, treePosition, Quaternion.identity);
+            }
+        }
+    }
+
 
 }
