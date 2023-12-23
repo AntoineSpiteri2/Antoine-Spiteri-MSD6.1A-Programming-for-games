@@ -61,6 +61,7 @@ public class LevelExpolored : MonoBehaviour
 
     public void LoadNewScene(string sceneName)
     {
+        Debug.Log("loading next city");
         SceneManager.LoadScene(sceneName);
     }
 
