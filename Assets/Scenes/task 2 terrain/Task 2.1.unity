@@ -228,12 +228,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2c28065581fdc04599382b49ff5d667, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  depth: 11
+  depth: 15
   width: 256
   height: 256
-  scale: 20
+  scale: 10
   offsetx: 100
   offsety: 100
+  tree: {fileID: 192044, guid: 19682540d8a014522a319b1cf788aee2, type: 3}
+  rock: {fileID: 2290846898853941114, guid: b0abe2cf3d0874541a042aeb54738371, type: 3}
+  cloud: {fileID: 2817948613116279477, guid: 293306f29c459804991c04490904e1dd, type: 3}
+  NumberoFTrees: 100
+  NumberoFRocks: 100
+  NumberoFClouds: 5
+  slopthreshold: 10
+  threshold: 0.1
 --- !u!1 &799557364
 GameObject:
   m_ObjectHideFlags: 0
