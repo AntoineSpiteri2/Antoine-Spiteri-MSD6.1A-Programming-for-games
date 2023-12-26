@@ -239,7 +239,7 @@ MonoBehaviour:
   cloud: {fileID: 2817948613116279477, guid: 293306f29c459804991c04490904e1dd, type: 3}
   NumberoFTrees: 100
   NumberoFRocks: 100
-  NumberoFClouds: 5
+  NumberoFClouds: 10
   slopthreshold: 10
   threshold: 0.1
 --- !u!1 &799557364
