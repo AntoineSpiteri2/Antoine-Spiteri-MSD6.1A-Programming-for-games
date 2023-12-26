@@ -235,16 +235,21 @@ MonoBehaviour:
   offsetx: 100
   offsety: 100
   tree: {fileID: 192044, guid: 19682540d8a014522a319b1cf788aee2, type: 3}
-  rock: {fileID: 0}
-  cloud: {fileID: 0}
+  rock: {fileID: 2290846898853941114, guid: b0abe2cf3d0874541a042aeb54738371, type: 3}
+  cloud: {fileID: 2817948613116279477, guid: 293306f29c459804991c04490904e1dd, type: 3}
   NumberoFTrees: 100
   NumberoFRocks: 100
-  NumberoFClouds: 10
+  NumberoFClouds: 25
   slopthreshold: 10
   threshold: 0.1
-  enableGrass: 0
-  enablerocks: 0
-  enableClopuds: 0
+  enableGrass: 1
+  enablerocks: 1
+  enableClopuds: 1
+  enablePath: 0
+  stonePrefab: {fileID: 9175831527722659756, guid: c125ed354029c1542940b42fd394e2ef,
+    type: 3}
+  pathLength: 52
+  stoneSpacing: 5
 --- !u!1 &799557364
 GameObject:
   m_ObjectHideFlags: 0
@@ -430,4 +435,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1172060694
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1172060695}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1172060695
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172060694}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4, y: 0, z: 150.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
